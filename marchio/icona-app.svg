@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Solarys Conformità">
+  <title>Solarys Conformità</title>
+  <!--
+    Icona dell'applicazione. Il riquadro segue la forma delle icone di macOS
+    (superellisse con margine); dentro, il marchio in negativo sul fondo scuro
+    dell'interfaccia. Il marchio occupa il 62% del lato: più grande sborderebbe
+    dalla griglia del Dock, più piccolo si perderebbe.
+  -->
+  <defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#22262e"/>
+      <stop offset="1" stop-color="#12151a"/>
+    </linearGradient>
+    <linearGradient id="acceso" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#fcb03c"/>
+      <stop offset="1" stop-color="#e25846"/>
+    </linearGradient>
+    <radialGradient id="luce" cx="0.26" cy="0.12" r="0.9">
+      <stop offset="0" stop-color="#fcb03c" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#fcb03c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- il riquadro, con il margine che vuole il Dock -->
+  <g>
+    <rect x="92" y="92" width="840" height="840" rx="188" fill="url(#fondo)"/>
+    <rect x="92" y="92" width="840" height="840" rx="188" fill="url(#luce)"/>
+    <rect x="92.5" y="92.5" width="839" height="839" rx="187.5"
+          fill="none" stroke="#ffffff" stroke-opacity=".07" stroke-width="1"/>
+  </g>
+
+  <!-- il marchio, centrato -->
+  <g transform="translate(194 194) scale(6.63)">
+    <rect x="11" y="10" width="54" height="76" rx="5" fill="none"
+          stroke="#eae7e1" stroke-width="6" stroke-opacity=".92"/>
+    <g fill="#eae7e1" opacity=".3">
+      <rect x="24" y="26" width="30" height="6" rx="3"/>
+      <rect x="24" y="66" width="22" height="6" rx="3"/>
+    </g>
+    <rect x="24" y="44" width="34" height="8" rx="4" fill="url(#acceso)"/>
+    <path d="M45 63 L59 77 L89 33" fill="none" stroke="url(#acceso)"
+          stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

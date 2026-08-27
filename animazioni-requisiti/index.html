@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Diciassette requisiti — Solarys Conformità</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin:0; padding:0; box-sizing:border-box }
+      html, body { width:1920px; height:1080px; overflow:hidden; background:#fbfaf8 }
+      body{ font-family:"EB Garamond",Georgia,serif; color:#14181f }
+      .mono{ font-family:"JetBrains Mono",ui-monospace,monospace }
+
+      #root{ position:relative; width:1920px; height:1080px; overflow:hidden }
+      #fondo{ position:absolute; inset:0; background:#fbfaf8 }
+      .clip{ position:absolute }
+
+      /* testata */
+      #testata{ left:96px; top:84px; width:1728px }
+      #cliente{
+        font-size:28px; letter-spacing:.2em; text-transform:uppercase;
+        color:#a1660a; font-weight:600;
+      }
+      #titolo{ margin-top:18px; font-size:66px; line-height:1.1; font-weight:600; letter-spacing:-.015em }
+
+      /* elenco dei requisiti su due colonne */
+      #elenco{
+        left:96px; top:236px; width:1728px;
+        display:grid; grid-template-columns:1fr 1fr; gap:12px 40px;
+      }
+      .voce{
+        display:flex; align-items:center; justify-content:space-between; gap:24px;
+        background:#fff; border:1px solid #e2ded7; border-left:5px solid #e2ded7;
+        padding:12px 20px; border-radius:3px;
+      }
+      .voce .nome{ font-size:26px; line-height:1.25 }
+      .voce .esito{
+        flex:none; font-size:18px; letter-spacing:.1em; text-transform:uppercase;
+        font-weight:700; padding:8px 14px; border-radius:3px; white-space:nowrap;
+      }
+      .voce.ok{ border-left-color:#1d6b48 }
+      .voce.ok .esito{ background:#e8f2ec; color:#1d6b48 }
+      .voce.no{ border-left-color:#9b2226 }
+      .voce.no .esito{ background:#f9eaea; color:#9b2226 }
+      .voce.forse{ border-left-color:#8a5a00 }
+      .voce.forse .esito{ background:#fbf0da; color:#8a5a00 }
+      .voce.nd{ border-left-color:#a1660a }
+      .voce.nd .esito{ background:#f7efe0; color:#8a5408 }
+
+      /* riepilogo finale */
+      #riepilogo{
+        left:96px; top:924px; width:1728px;
+        display:flex; align-items:center; gap:56px;
+      }
+      #riepilogo .conto{ display:flex; align-items:baseline; gap:14px }
+      #riepilogo .n{ font-size:56px; font-weight:700; line-height:1 }
+      #riepilogo .et{ font-size:26px; letter-spacing:.08em; text-transform:uppercase; color:#5b6472 }
+      .n.ok{ color:#1d6b48 } .n.no{ color:#9b2226 }
+      .n.forse{ color:#8a5a00 } .n.nd{ color:#a1660a }
+      #chiusa{
+        margin-left:auto; font-size:28px; color:#5b6472; font-style:italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="requisiti"
+      data-start="0"
+      data-width="1920"
+      data-height="1080"
+      data-duration="11"
+    >
+      <div id="fondo" class="clip" data-start="0" data-duration="11" data-track-index="0"></div>
+
+      <div id="testata" class="clip" data-start="0" data-duration="11" data-track-index="1">
+        <div id="cliente" class="mono">Centro Medico Arcobaleno · analisi completa</div>
+        <div id="titolo">Diciassette requisiti, uno per uno</div>
+      </div>
+
+      <div id="elenco" class="clip" data-start="0" data-duration="11" data-track-index="2">
+        <div class="voce ok"><span class="nome">Autorizzazione sanitaria all'esercizio</span><span class="esito mono">Riscontrato</span></div>
+        <div class="voce no"><span class="nome">Misure di sicurezza sui dati sanitari</span><span class="esito mono">Mancante</span></div>
+        <div class="voce forse"><span class="nome">Nomina del direttore sanitario</span><span class="esito mono">Parziale</span></div>
+        <div class="voce no"><span class="nome">Procedura per le violazioni di dati</span><span class="esito mono">Mancante</span></div>
+        <div class="voce ok"><span class="nome">Consenso informato alle prestazioni</span><span class="esito mono">Riscontrato</span></div>
+        <div class="voce forse"><span class="nome">Conservazione della documentazione clinica</span><span class="esito mono">Parziale</span></div>
+        <div class="voce ok"><span class="nome">Informativa privacy con le specificità sanitarie</span><span class="esito mono">Riscontrato</span></div>
+        <div class="voce nd"><span class="nome">Adempimenti di radioprotezione</span><span class="esito mono">Non dovuto</span></div>
+        <div class="voce no"><span class="nome">Registro delle attività di trattamento</span><span class="esito mono">Mancante</span></div>
+        <div class="voce ok"><span class="nome">Copertura assicurativa Gelli-Bianco</span><span class="esito mono">Riscontrato</span></div>
+        <div class="voce no"><span class="nome">Designazione del responsabile dei dati</span><span class="esito mono">Mancante</span></div>
+        <div class="voce no"><span class="nome">Gestione dei rifiuti sanitari</span><span class="esito mono">Mancante</span></div>
+        <div class="voce no"><span class="nome">Nomina dei fornitori che trattano dati</span><span class="esito mono">Mancante</span></div>
+        <div class="voce no"><span class="nome">Valutazione dei rischi sul lavoro</span><span class="esito mono">Mancante</span></div>
+        <div class="voce no"><span class="nome">Istruzioni scritte al personale</span><span class="esito mono">Mancante</span></div>
+        <div class="voce no"><span class="nome">Verifiche delle apparecchiature elettromedicali</span><span class="esito mono">Mancante</span></div>
+        <div class="voce no"><span class="nome">Comunicazioni informative sanitarie</span><span class="esito mono">Mancante</span></div>
+      </div>
+
+      <div id="riepilogo" class="clip" data-start="0" data-duration="11" data-track-index="3">
+        <div class="conto"><span class="n ok mono">4</span><span class="et">riscontrati</span></div>
+        <div class="conto"><span class="n forse mono">2</span><span class="et">parziali</span></div>
+        <div class="conto"><span class="n no mono">10</span><span class="et">mancanti</span></div>
+        <div class="conto"><span class="n nd mono">1</span><span class="et">non dovuto</span></div>
+        <div id="chiusa">gli esiti positivi con la prova che li sostiene</div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#cliente", { opacity: 0, y: 16 },
+                { opacity: 1, y: 0, duration: .45, ease: "power2.out" }, 0.15);
+      tl.fromTo("#titolo", { opacity: 0, y: 26 },
+                { opacity: 1, y: 0, duration: .6, ease: "power3.out" }, 0.35);
+
+      // i requisiti si accendono uno a uno, nell'ordine in cui il motore li chiude
+      tl.fromTo(".voce", { opacity: 0, y: 18 },
+                { opacity: 1, y: 0, duration: .34, stagger: .3, ease: "power2.out" }, 1.0);
+
+      // il conto finale, quando l'ultimo è chiuso
+      tl.fromTo("#riepilogo .conto", { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: .4, stagger: .12, ease: "back.out(1.8)" }, 7.1);
+      tl.fromTo("#chiusa", { opacity: 0 },
+                { opacity: 1, duration: .5, ease: "none" }, 7.8);
+
+      tl.to(["#testata", "#elenco", "#riepilogo"],
+            { opacity: 0, duration: .6, ease: "power2.in" }, 10.2);
+
+      window.__timelines["requisiti"] = tl;
+    </script>
+  </body>
+</html>

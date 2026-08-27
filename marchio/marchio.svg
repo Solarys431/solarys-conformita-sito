@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="Solarys Conformità">
+  <title>Solarys Conformità</title>
+  <!--
+    Il documento e la prova. Due righe restano neutre; una sola è accesa, ed è
+    il passaggio ritrovato. Da lì nasce la spunta, che esce dal foglio: la
+    conferma viene dal testo, non da un'opinione.
+    Il tratto usa currentColor, così il marchio vive su fondo chiaro e su scuro.
+  -->
+  <defs>
+    <linearGradient id="sole2" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#fcb03c"/>
+      <stop offset="1" stop-color="#e25846"/>
+    </linearGradient>
+  </defs>
+
+  <!-- il foglio -->
+  <rect x="11" y="10" width="54" height="76" rx="5" fill="none"
+        stroke="#14181f" stroke-width="6" stroke-opacity=".9"/>
+
+  <!-- le righe del documento -->
+  <g fill="#14181f" opacity=".28">
+    <rect x="24" y="26" width="30" height="6" rx="3"/>
+    <rect x="24" y="66" width="22" height="6" rx="3"/>
+  </g>
+
+  <!-- il passaggio riscontrato -->
+  <rect x="24" y="44" width="34" height="8" rx="4" fill="url(#sole2)"/>
+
+  <!-- la spunta che ne nasce ed esce dal foglio -->
+  <path d="M45 63 L59 77 L89 33" fill="none" stroke="url(#sole2)"
+        stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

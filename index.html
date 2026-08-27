@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solarys Conformità · Pre-audit documentale locale</title>
+<meta name="description" content="Prototipo funzionale di pre-audit documentale: le prove citate vengono riscontrate nei documenti originali e, nella configurazione locale, i fascicoli restano sul dispositivo.">
+<link rel="icon" href="marchio/segno.svg" type="image/svg+xml">
+<link rel="icon" href="marchio/icone/marchio-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="marchio/icone/marchio-180.png">
+<style>
+/* ══════════════════════════════════════════════════════════════
+   Solarys Conformità · pagina di presentazione
+   Tutto locale: video e stili accanto a questo file, niente rete.
+   ══════════════════════════════════════════════════════════════ */
+:root{
+  --carta:#fbfaf8;
+  --carta-alta:#ffffff;
+  --carta-bassa:#f2efe9;
+  --notte:#14181f;
+  --notte-alta:#1d222b;
+  --inchiostro:#14181f;
+  --tenue:#5b6472;
+  --filo:#e2ded7;
+  --oro:#8a5408;
+  --oro-vivo:#c9922a;
+  --oro-tenue:#f7efe0;
+  --verde:#1d6b48;
+  --verde-tenue:#e8f2ec;
+  --rosso:#9b2226;
+  --rosso-tenue:#f9eaea;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --carta:#15171b; --carta-alta:#1c1f25; --carta-bassa:#101216;
+    --inchiostro:#eae7e1; --tenue:#a3aab6; --filo:#2d323a;
+    --oro:#d9a441; --oro-vivo:#e8b75c; --oro-tenue:#2a2317;
+    --verde:#6ec49a; --verde-tenue:#16241d;
+    --rosso:#e98b8e; --rosso-tenue:#2a1a1b;
+  }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--carta); color:var(--inchiostro);
+  font:16px/1.62 var(--serif); -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important; transition:none!important}
+}
+img,video{max-width:100%; display:block}
+h1,h2,h3{margin:0; font-weight:600; letter-spacing:-.02em; line-height:1.02}
+p{margin:0}
+:focus-visible{outline:2px solid var(--oro-vivo); outline-offset:4px; border-radius:2px}
+.skip-link{
+  position:absolute; left:1rem; top:-5rem; z-index:10; padding:.7rem 1rem;
+  background:var(--inchiostro); color:var(--carta); font:600 .8rem/1.2 var(--mono);
+}
+.skip-link:focus{top:1rem}
+
+.largo{width:min(1500px,92vw); margin:0 auto}
+.stretto{width:min(46rem,90vw); margin:0 auto}
+
+.etichetta{
+  font:600 .74rem/1.6 var(--mono); letter-spacing:.24em; text-transform:uppercase;
+  color:var(--oro);
+}
+
+/* ── apertura ───────────────────────────────────────────────── */
+.apertura{padding:clamp(2rem,4vw,3.4rem) 0 clamp(3rem,6vw,5rem)}
+.duecolonne{
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);
+  gap:clamp(2rem,4vw,3.6rem); align-items:center;
+}
+.apertura .duecolonne{margin-top:clamp(1.6rem,3vw,2.6rem)}
+.duecolonne .scena{margin-top:0}
+/* il riquadro può stare a sinistra quando serve ritmo */
+.duecolonne.invertita > *:first-child{order:2}
+@media (max-width:1000px){
+  .duecolonne{grid-template-columns:minmax(0,1fr)}
+  .duecolonne.invertita > *:first-child{order:0}
+}
+.insegna{display:inline-flex; align-items:center; gap:1rem}
+.insegna .simbolo{width:52px; height:52px; flex:none}
+.timbro{
+  display:inline-flex; align-items:center; gap:.7rem;
+  background:#1a1206; border-radius:5px; padding:.6rem .85rem;
+}
+.timbro svg{height:15px; width:auto}
+.timbro b{font:600 .68rem/1 var(--mono); letter-spacing:.24em; color:#f0c469; text-transform:uppercase}
+
+h1{
+  margin:0;
+  font-size:clamp(2rem,3.6vw,2.95rem);
+  text-wrap:balance;
+}
+h1 .due{display:block; color:var(--oro)}
+.sottotitolo{
+  margin-top:clamp(1.4rem,3vw,2.2rem); max-width:36rem;
+  font-size:clamp(1.02rem,1.6vw,1.22rem); line-height:1.55; color:var(--tenue);
+}
+.sottotitolo b{color:var(--inchiostro); font-weight:600}
+
+/* la riga che dice subito di che cosa si tratta */
+.chiave{
+  font:600 .8rem/1.6 var(--mono); letter-spacing:.16em; text-transform:uppercase;
+  color:var(--oro); margin-top:1.6rem;
+}
+/* il claim, sotto la spiegazione: prima si capisce, poi colpisce */
+.claim{
+  margin-top:clamp(1.5rem,2.5vw,2rem); padding-top:1.3rem;
+  border-top:1px solid var(--filo);
+  font-size:clamp(1.12rem,1.9vw,1.42rem); line-height:1.35; font-weight:600;
+}
+.claim .risalto{color:var(--oro)}
+.claim .spiega{
+  display:block; margin-top:.6rem;
+  font:.98rem/1.5 var(--serif); font-weight:400; color:var(--tenue);
+}
+.github-link{
+  display:inline-flex; align-items:center; margin-top:1.2rem; padding:.65rem .9rem;
+  border:1px solid var(--filo); border-radius:4px; color:var(--inchiostro);
+  font:600 .76rem/1.2 var(--mono); letter-spacing:.06em; text-decoration:none;
+  background:var(--carta-alta);
+}
+.github-link:hover{border-color:var(--oro); color:var(--oro)}
+
+/* ── il riquadro del video ──────────────────────────────────── */
+.scena{
+  margin-top:clamp(1.6rem,3vw,2.4rem);
+  border:1px solid var(--filo); border-radius:6px; overflow:hidden;
+  background:var(--carta-alta);
+  box-shadow:0 40px 90px -60px rgba(20,24,31,.55);
+}
+.scena video{width:100%; height:auto; aspect-ratio:16/9; background:var(--carta-bassa)}
+.scena.alto video{aspect-ratio:1396/1044}
+.didascalia{
+  display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; align-items:baseline;
+  padding:.9rem 1.2rem; border-top:1px solid var(--filo);
+  font:.78rem/1.5 var(--mono); color:var(--tenue);
+}
+.didascalia b{color:var(--oro); font-weight:600; letter-spacing:.1em; text-transform:uppercase}
+
+/* ── fasce ──────────────────────────────────────────────────── */
+.fascia{padding:clamp(3.4rem,7vw,6.4rem) 0}
+.fascia.bassa{background:var(--carta-bassa)}
+.fascia.notte{background:var(--notte); color:#eae7e1}
+.fascia.notte .etichetta{color:var(--oro-vivo)}
+
+h2{font-size:clamp(1.68rem,3.4vw,2.72rem); margin-top:1rem}
+.sotto{
+  margin-top:1.4rem; max-width:34rem;
+  font-size:clamp(.98rem,1.35vw,1.08rem); line-height:1.6; color:var(--tenue);
+}
+.fascia.notte .sotto{color:#a9b0bc}
+
+/* ── numeri ─────────────────────────────────────────────────── */
+.numeri{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));
+  gap:clamp(1.5rem,3vw,3rem); margin-top:clamp(2.5rem,5vw,4rem);
+}
+.numero .n{
+  font:600 clamp(2.3rem,4.4vw,3.7rem)/1 var(--serif);
+  letter-spacing:-.03em; color:var(--oro);
+}
+.numero .che{
+  margin-top:.55rem; font-size:.95rem; line-height:1.45; color:var(--tenue);
+  max-width:14rem;
+}
+.fascia.notte .numero .n{color:var(--oro-vivo)}
+.fascia.notte .numero .che{color:#a9b0bc}
+
+/* ── schermate del prodotto ─────────────────────────────────── */
+.schermate{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,26rem),1fr));
+  gap:clamp(1.2rem,2.5vw,2rem); margin-top:clamp(2.5rem,5vw,3.5rem);
+}
+.schermata{
+  border:1px solid var(--filo); border-radius:6px; overflow:hidden;
+  background:var(--carta-alta);
+  box-shadow:0 30px 70px -55px rgba(20,24,31,.6);
+}
+.schermata{margin:0}
+.duecolonne .schermata img{width:100%; display:block}
+.duecolonne.seconda-riga{margin-top:clamp(2.5rem,5vw,4rem)}
+.schermata img{width:100%}
+.schermata.larga{grid-column:1/-1}
+.accanto{display:flex; flex-direction:column; justify-content:center; gap:1.4rem; padding:1rem 0}
+.passo{display:flex; gap:1rem; align-items:baseline; font-size:1.02rem; line-height:1.5}
+.passo .num{font:600 .78rem/1 var(--mono); color:var(--oro-vivo); letter-spacing:.08em; flex:none}
+
+/* i quattro passi, in chiaro */
+.passi-grandi{
+  list-style:none; margin:clamp(2.5rem,5vw,3.5rem) 0 0; padding:0;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));
+  gap:clamp(1.6rem,3vw,2.6rem);
+}
+.passi-grandi li{border-top:2px solid var(--oro); padding-top:1.1rem}
+.passi-grandi .num{
+  font:600 .78rem/1 var(--mono); letter-spacing:.14em; color:var(--oro);
+}
+.passi-grandi h3{margin-top:.6rem; font-size:1.14rem; letter-spacing:-.01em}
+.passi-grandi p{margin-top:.5rem; font-size:.95rem; line-height:1.5; color:var(--tenue)}
+.perchi{
+  margin-top:clamp(2.2rem,4vw,3rem); max-width:44rem;
+  font-size:1rem; line-height:1.55; color:var(--tenue);
+}
+.perchi b{color:var(--inchiostro); font-weight:600}
+.schermata .voce{
+  padding:.85rem 1.1rem; border-top:1px solid var(--filo);
+  font:.8rem/1.5 var(--mono); color:var(--tenue);
+}
+.fascia.notte .schermata{border-color:#2f353e; background:var(--notte-alta)}
+.fascia.notte .schermata .voce{border-color:#2f353e; color:#a9b0bc}
+
+/* ── i tre verticali ────────────────────────────────────────── */
+.verticali{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));
+  gap:1.2rem; margin-top:clamp(2.5rem,5vw,3.5rem);
+}
+.verticale{
+  background:var(--carta-alta); border:1px solid var(--filo); border-radius:5px;
+  padding:1.6rem 1.7rem 1.8rem;
+}
+.verticale .quanti{
+  font:600 2.05rem/1 var(--serif); color:var(--oro); letter-spacing:-.02em;
+}
+.verticale h3{margin-top:.6rem; font-size:1.08rem}
+.verticale p{margin-top:.6rem; font-size:.95rem; line-height:1.5; color:var(--tenue)}
+
+/* i requisiti, detti in chiaro */
+.ferro{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));
+  gap:clamp(1.4rem,3vw,2.4rem); margin-top:clamp(2.5rem,5vw,3.5rem);
+  max-width:64rem;
+}
+.ferro > div{border-top:1px solid var(--filo); padding-top:1.1rem}
+.ferro .voce{
+  display:block; font:600 .68rem/1.5 var(--mono); letter-spacing:.16em;
+  text-transform:uppercase; color:var(--oro); margin-bottom:.6rem;
+}
+.ferro p{font-size:.95rem; line-height:1.6; color:var(--tenue)}
+.ferro p b{color:var(--inchiostro); font-weight:600}
+
+/* ── manifesto ──────────────────────────────────────────────── */
+.manifesto{
+  font-size:clamp(1.8rem,4vw,3.15rem); line-height:1.12; letter-spacing:-.025em;
+  font-weight:600; max-width:22ch;
+}
+.manifesto .acceso{color:var(--oro-vivo)}
+
+/* ── invito ─────────────────────────────────────────────────── */
+.invito-riga{
+  display:flex; flex-wrap:wrap; gap:1rem; align-items:center;
+  margin-top:clamp(2rem,4vw,3rem);
+}
+/* la riga che chiude l'invito */
+footer{
+  padding:2.5rem 0 3.5rem; border-top:1px solid var(--filo);
+  font:.8rem/1.7 var(--mono); color:var(--tenue);
+}
+footer .marchio{color:var(--oro); letter-spacing:.18em; text-transform:uppercase; font-weight:600}
+footer p{margin-top:.5rem; max-width:44rem}
+footer a{color:var(--oro); text-underline-offset:.2em}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Vai al contenuto principale</a>
+
+<!-- ══ APERTURA ══════════════════════════════════════════════ -->
+<section class="apertura" id="main-content" tabindex="-1">
+  <div class="largo">
+    <span class="insegna">
+     <svg class="simbolo" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Solarys Conformità"><defs><linearGradient id="mk" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0" stop-color="#fcb03c"/><stop offset="1" stop-color="#e25846"/></linearGradient></defs><rect x="11" y="10" width="54" height="76" rx="5" fill="none" stroke="currentColor" stroke-width="6" stroke-opacity=".9"/><g fill="currentColor" opacity=".28"><rect x="24" y="26" width="30" height="6" rx="3"/><rect x="24" y="66" width="22" height="6" rx="3"/></g><rect x="24" y="44" width="34" height="8" rx="4" fill="url(#mk)"/><path d="M45 63 L59 77 L89 33" fill="none" stroke="url(#mk)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg>
+     <span class="timbro">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288 30" role="img" aria-label="Solarys"><rect x="0" y="0" width="36" height="6" fill="#ffd666"/><rect x="42" y="0" width="36" height="6" fill="#ffd666"/><rect x="84" y="0" width="12" height="6" fill="#ffd666"/><rect x="126" y="0" width="36" height="6" fill="#ffd666"/><rect x="168" y="0" width="36" height="6" fill="#ffd666"/><rect x="210" y="0" width="12" height="6" fill="#ffd666"/><rect x="234" y="0" width="12" height="6" fill="#ffd666"/><rect x="252" y="0" width="36" height="6" fill="#ffd666"/><rect x="0" y="6" width="12" height="6" fill="#fcb03c"/><rect x="42" y="6" width="12" height="6" fill="#fcb03c"/><rect x="66" y="6" width="12" height="6" fill="#fcb03c"/><rect x="84" y="6" width="12" height="6" fill="#fcb03c"/><rect x="126" y="6" width="12" height="6" fill="#fcb03c"/><rect x="150" y="6" width="12" height="6" fill="#fcb03c"/><rect x="168" y="6" width="12" height="6" fill="#fcb03c"/><rect x="192" y="6" width="12" height="6" fill="#fcb03c"/><rect x="210" y="6" width="12" height="6" fill="#fcb03c"/><rect x="234" y="6" width="12" height="6" fill="#fcb03c"/><rect x="252" y="6" width="12" height="6" fill="#fcb03c"/><rect x="0" y="12" width="36" height="6" fill="#f78c1e"/><rect x="42" y="12" width="12" height="6" fill="#f78c1e"/><rect x="66" y="12" width="12" height="6" fill="#f78c1e"/><rect x="84" y="12" width="12" height="6" fill="#f78c1e"/><rect x="126" y="12" width="36" height="6" fill="#f78c1e"/><rect x="168" y="12" width="30" height="6" fill="#f78c1e"/><rect x="216" y="12" width="24" height="6" fill="#f78c1e"/><rect x="252" y="12" width="36" height="6" fill="#f78c1e"/><rect x="24" y="18" width="12" height="6" fill="#ee6c33"/><rect x="42" y="18" width="12" height="6" fill="#ee6c33"/><rect x="66" y="18" width="12" height="6" fill="#ee6c33"/><rect x="84" y="18" width="12" height="6" fill="#ee6c33"/><rect x="126" y="18" width="12" height="6" fill="#ee6c33"/><rect x="150" y="18" width="12" height="6" fill="#ee6c33"/><rect x="168" y="18" width="12" height="6" fill="#ee6c33"/><rect x="192" y="18" width="12" height="6" fill="#ee6c33"/><rect x="222" y="18" width="12" height="6" fill="#ee6c33"/><rect x="276" y="18" width="12" height="6" fill="#ee6c33"/><rect x="0" y="24" width="36" height="6" fill="#e25846"/><rect x="42" y="24" width="36" height="6" fill="#e25846"/><rect x="84" y="24" width="36" height="6" fill="#e25846"/><rect x="126" y="24" width="12" height="6" fill="#e25846"/><rect x="150" y="24" width="12" height="6" fill="#e25846"/><rect x="168" y="24" width="12" height="6" fill="#e25846"/><rect x="192" y="24" width="12" height="6" fill="#e25846"/><rect x="222" y="24" width="12" height="6" fill="#e25846"/><rect x="252" y="24" width="36" height="6" fill="#e25846"/></svg>
+      <b>Conformità</b>
+     </span>
+    </span>
+
+    <p class="chiave">Prototipo di pre-audit documentale · elaborazione locale</p>
+
+    <div class="duecolonne">
+     <div>
+      <h1>Verifica che cosa è<span class="due">documentato.</span></h1>
+      <p class="sottotitolo"><b>Solarys Conformità</b> legge i documenti di un cliente
+      (visure, procedure, nomine, polizze, verbali, valutazioni dei rischi), li confronta
+      con requisiti documentali versionati e restituisce <b>una relazione di lavoro che
+      distingue evidenze presenti, parziali, mancanti e da verificare</b>.</p>
+      <p class="claim">Non un parere: un <span class="risalto">riscontro</span>.
+        <span class="spiega">gli esiti positivi riportano la citazione riscontrata nel
+        documento originale; ciò che non regge passa a revisione</span></p>
+      <a class="github-link" href="https://github.com/Solarys431/solarys-conformita-sito"
+         target="_blank" rel="noopener noreferrer">View on GitHub ↗</a>
+     </div>
+
+     <div class="scena" style="margin-top:0">
+      <video src="media/riscontro.mp4" poster="media/riscontro-poster.jpg" controls muted playsinline preload="metadata"
+             aria-label="Il sistema trova nel documento il passaggio che prova il verdetto e vi appone il riscontro"></video>
+      <p class="didascalia"><b>Caso sintetico</b>
+        <span>struttura sanitaria · requisito 12 di 17</span></p>
+     </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CHE COSA FA ═══════════════════════════════════════════ -->
+<section class="fascia bassa">
+  <div class="largo">
+    <div class="duecolonne invertita">
+     <figure class="scena schermata">
+       <img src="media/prodotto-raccolte.jpg" alt="La base documentale con le raccolte dei clienti e i loro documenti">
+       <figcaption class="didascalia"><b>I fascicoli</b>
+         <span>una raccolta per cliente, indicizzata in locale</span></figcaption>
+     </figure>
+     <div>
+      <p class="etichetta">Che cosa fa</p>
+      <h2>Avvii l'analisi<br>e torni a lavorare.</h2>
+      <p class="sotto">Quando rientri, la relazione è pronta: rilievi, citazioni, scadenze.
+      Fare lo stesso controllo a mano vuol dire aprire decine di documenti e ricordare a
+      memoria ogni obbligo di legge, da capo a ogni aggiornamento del fascicolo. Le ore che
+      il programma ti restituisce le spendi dove il tuo lavoro vale di più. Il giudizio, e la
+      responsabilità, restano tuoi.</p>
+     </div>
+    </div>
+
+    <ol class="passi-grandi">
+      <li><span class="num">01</span>
+        <h3>Metti dentro i documenti</h3>
+        <p>Anche i PDF scansionati: il riconoscimento del testo è incorporato.</p></li>
+      <li><span class="num">02</span>
+        <h3>Scegli le regole</h3>
+        <p>Sanità, antiriciclaggio, studio legale, sicurezza, GDPR, 231. E quanto essere severo.</p></li>
+      <li><span class="num">03</span>
+        <h3>Il programma verifica</h3>
+        <p>Requisito per requisito, cercando da sé i passaggi pertinenti fra tutti i documenti.</p></li>
+      <li><span class="num">04</span>
+        <h3>Leggi e validi</h3>
+        <p>Una relazione di pre-audit con rilievi, citazioni e scadenze. La decisione professionale resta tua.</p></li>
+    </ol>
+
+    <p class="perchi"><b>Per chi:</b> commercialisti, avvocati, consulenti del lavoro,
+    direttori sanitari, responsabili qualità e piccole imprese che devono organizzare
+    e documentare i propri controlli.</p>
+  </div>
+</section>
+
+<!-- ══ IL COLPO D'OCCHIO ═════════════════════════════════════ -->
+<section class="fascia">
+  <div class="largo">
+    <div class="duecolonne">
+     <div>
+      <p class="etichetta">Una raccolta, un'analisi</p>
+      <h2>Diciassette verdetti,<br>ognuno con la sua prova.</h2>
+      <p class="sotto">Trascini dentro i documenti e vai a fare altro.
+      Venti minuti dopo hai la relazione, requisito per requisito.</p>
+     </div>
+
+     <div class="scena">
+      <video src="media/requisiti.mp4" poster="media/requisiti-poster.jpg" controls muted playsinline preload="metadata"
+             aria-label="I diciassette requisiti si chiudono uno a uno con il proprio esito"></video>
+      <p class="didascalia"><b>Analisi sintetica</b>
+        <span>Centro Medico Arcobaleno · esito 4 / 2 / 10 / 1</span></p>
+     </div>
+    </div>
+
+    <div class="numeri">
+      <div class="numero"><div class="n">104</div>
+        <p class="che">requisiti in dotazione, su sette insiemi versionati</p></div>
+      <div class="numero"><div class="n">~20′*</div>
+        <p class="che">nella prova dimostrativa; il tempo varia con modello, hardware e documenti</p></div>
+      <div class="numero"><div class="n">0</div>
+        <p class="che">documenti inviati al cloud nella configurazione locale</p></div>
+      <div class="numero"><div class="n">30</div>
+        <p class="che">casi sintetici nella suite legale di regressione, non un benchmark SOTA</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ IL PRODOTTO ═══════════════════════════════════════════ -->
+<section class="fascia notte">
+  <div class="largo">
+    <div class="duecolonne invertita">
+     <div>
+      <p class="etichetta">Il programma, sul tuo computer</p>
+      <h2>Nessuna scatola nera.</h2>
+      <p class="sotto">I giudizi compaiono mentre l'analisi procede, con norma, motivazione
+      e, quando richiesta, la prova testuale riscontrata.</p>
+      <p class="passo"><span class="num">·</span> Un clic sulla citazione apre il passaggio
+        dentro al documento da cui viene.</p>
+      <p class="passo"><span class="num">·</span> Nella configurazione locale il modello è
+        installato qui: niente chiavi API e analisi offline dopo l'installazione.</p>
+      <p class="passo"><span class="num">·</span> La relazione si scarica in un file di testo,
+        da riesaminare e validare prima dell'uso.</p>
+     </div>
+     <div class="scena alto">
+      <video src="media/pannello.mp4" poster="media/pannello-poster.jpg" controls muted playsinline preload="metadata"
+             aria-label="Il pannello di analisi mentre i verdetti compaiono uno dopo l'altro"></video>
+      <p class="didascalia"><b>Ripreso dal programma</b>
+        <span>nell'interfaccia storica, «conforme» indica evidenza riscontrata, non una certificazione</span></p>
+     </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ IL CONFRONTO ══════════════════════════════════════════ -->
+<section class="fascia">
+  <div class="largo">
+    <div class="duecolonne">
+     <div>
+      <p class="etichetta">«Ma non basta un chatbot?»</p>
+      <h2>La taglia del modello<br>non basta.</h2>
+      <p class="sotto">In una prova esplorativa, stessa domanda e stessi documenti. Il
+      valore aggiunto è il controllo successivo: il motore riscontra la citazione e, se
+      non regge, invia il giudizio a revisione.</p>
+     </div>
+
+     <div class="scena">
+      <video src="media/confronto.mp4" poster="media/confronto-poster.jpg" controls muted playsinline preload="metadata"
+             aria-label="Confronto fra la risposta sicura e sbagliata di un modello e il verdetto con la fonte"></video>
+      <p class="didascalia"><b>Prova esplorativa · 8 agosto 2026</b>
+        <span>sei modelli; non è un benchmark indipendente</span></p>
+     </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ I DATI ════════════════════════════════════════════════ -->
+<section class="fascia bassa">
+  <div class="largo">
+    <p class="etichetta">Dove vanno i documenti</p>
+    <p class="manifesto">Restano sul dispositivo.<br>
+      <span class="acceso">Nella configurazione locale.</span></p>
+    <p class="sotto">Modello, indice e relazioni sono sul computer dello studio. Dopo
+    l'installazione dei modelli, l'analisi può funzionare anche senza rete. La valutazione
+    organizzativa e normativa del trattamento resta necessaria.</p>
+
+    <div class="ferro">
+      <div><span class="voce">Quanto serve</span>
+        <p>Il modello che giudica occupa <b>8,1 GB</b> di memoria video, quello che cerca
+        altri 664 MB. Una scheda dedicata da 12 GB basta, 16 GB stanno larghi.</p></div>
+      <div><span class="voce">Su che cosa gira</span>
+        <p>Collaudato su computer Apple con chip della serie M, dove la memoria è unificata.
+        Il motore è Python e Ollama, quindi non è legato a una piattaforma sola.</p></div>
+      <div><span class="voce">Che cosa non serve</span>
+        <p>Nessuna chiave API né consumo a token nella configurazione locale. Restano
+        hardware, energia, manutenzione e revisione professionale.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VERTICALI ═════════════════════════════════════════════ -->
+<section class="fascia">
+  <div class="largo">
+    <p class="etichetta">Per chi</p>
+    <h2>Sette insiemi di regole.<br>I requisiti li governi tu.</h2>
+
+    <div class="verticali">
+      <div class="verticale"><div class="quanti">17</div>
+        <h3>Struttura sanitaria</h3>
+        <p>Autorizzazione, direttore sanitario, consenso informato, Gelli-Bianco, rifiuti sanitari.</p></div>
+      <div class="verticale"><div class="quanti">19</div>
+        <h3>AML · fascicolo cliente</h3>
+        <p>Identificazione, titolare effettivo, PEP, rischio, misure, monitoraggio e conservazione.</p></div>
+      <div class="verticale"><div class="quanti">16</div>
+        <h3>Studio legale</h3>
+        <p>Incarico, polizza, formazione, conflitti, segreto professionale, privacy e IA.</p></div>
+      <div class="verticale"><div class="quanti">15</div>
+        <h3>AML · presìdi dello studio</h3>
+        <p>Autovalutazione, governance, organizzazione, procedure, formazione e controlli.</p></div>
+      <div class="verticale"><div class="quanti">13</div>
+        <h3>Sicurezza sul lavoro</h3>
+        <p>Valutazione dei rischi, nomine e validità, sorveglianza sanitaria, formazione.</p></div>
+      <div class="verticale"><div class="quanti">12</div>
+        <h3>GDPR</h3>
+        <p>Registro dei trattamenti, informative, responsabili esterni, violazioni di dati.</p></div>
+      <div class="verticale"><div class="quanti">12</div>
+        <h3>Modello 231</h3>
+        <p>Modello e aggiornamento, organismo di vigilanza, codice etico, segnalazioni.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INVITO ════════════════════════════════════════════════ -->
+<section class="fascia bassa">
+  <div class="largo">
+    <p class="etichetta">Il metodo</p>
+    <h2>Si parte da un caso pilota,<br>con un perimetro concordato.</h2>
+    <p class="sotto">Il modo serio di valutare il prototipo è iniziare da documenti sintetici
+    o adeguatamente anonimizzati e controllare requisito per requisito ciò che trova. Nella
+    configurazione locale, i documenti restano sul computer su cui gira l'analisi.</p>
+  </div>
+</section>
+
+<div class="largo">
+  <footer>
+    <p class="marchio">Solarys Conformità</p>
+    <p>Prototipo funzionale di pre-audit documentale locale. I rulebook dichiarano versione,
+    ambito e limiti. I casi mostrati sono sintetici; verdetti, citazioni e nomi dei file
+    provengono dalle esecuzioni dimostrative del programma.</p>
+    <p>Non è consulenza legale, non entra nel merito clinico e non certifica la conformità.
+    La relazione richiede la validazione del professionista responsabile.</p>
+    <p><a href="privacy.html">Privacy</a> · <a href="accessibilita.html">Accessibilità</a> ·
+    <a href="https://github.com/Solarys431/solarys-conformita-sito">GitHub repository ↗</a></p>
+    <p>© 2026 Daniele Cappello. Tutti i diritti riservati.</p>
+  </footer>
+</div>
+
+</body>
+</html>

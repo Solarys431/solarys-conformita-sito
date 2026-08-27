@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="Solarys Conformità">
+  <title>Solarys Conformità</title>
+  <!--
+    Versione per le misure piccole: sparisce il foglio, restano il passaggio
+    acceso e la spunta che ne nasce. Si legge fino a 16 px.
+  -->
+  <defs>
+    <linearGradient id="sole3" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#fcb03c"/>
+      <stop offset="1" stop-color="#e25846"/>
+    </linearGradient>
+  </defs>
+
+  <!-- il passaggio ritrovato -->
+  <rect x="10" y="26" width="46" height="11" rx="5.5" fill="url(#sole3)"/>
+  <!-- una riga neutra, per dire che è un testo -->
+  <rect x="10" y="50" width="30" height="11" rx="5.5" fill="#eae7e1" opacity=".26"/>
+  <!-- la spunta -->
+  <path d="M30 66 L46 82 L88 24" fill="none" stroke="url(#sole3)"
+        stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

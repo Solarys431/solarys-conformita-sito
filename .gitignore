@@ -1,0 +1,31 @@
+# ─────────────────────────────────────────────────────────────
+# Qui vivono la pagina di presentazione, i suoi filmati e i progetti
+# che li generano.
+#
+# Il programma, gli insiemi di requisiti e i fascicoli non entrano
+# in questo repository e non devono entrarci.
+# ─────────────────────────────────────────────────────────────
+
+# roba di sistema e degli strumenti
+.DS_Store
+__pycache__/
+node_modules/
+
+# file di lavoro dell'anteprima
+.chiaro.html
+chiaro-anteprima.html
+prova-mobile.html
+
+# i filmati definitivi stanno in media/: nei progetti che li generano
+# ci sono soltanto copie di lavoro e fotogrammi di prova
+animazioni*/renders/
+animazioni*/snapshots/
+animazioni*/.thumbnails/
+animazioni*/*.log
+
+# appunti e istruzioni di lavoro
+CLAUDE.md
+AGENTS.md
+animazioni*/CLAUDE.md
+animazioni*/AGENTS.md
+.claude/

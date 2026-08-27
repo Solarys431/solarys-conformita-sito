@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Il riscontro — Solarys Conformità</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin:0; padding:0; box-sizing:border-box }
+      html, body { width:1920px; height:1080px; overflow:hidden; background:#fbfaf8 }
+      body{ font-family:"EB Garamond",Georgia,serif; color:#14181f }
+      .mono{ font-family:"JetBrains Mono",ui-monospace,monospace }
+
+      #root{ position:relative; width:1920px; height:1080px; overflow:hidden }
+      #fondo{ position:absolute; inset:0; background:#fbfaf8 }
+      .clip{ position:absolute }
+
+      /* ── sinistra: il requisito, poi il verdetto ── */
+      #colonna{ left:96px; top:120px; width:840px }
+
+      #occhiello{
+        font-size:30px; letter-spacing:.22em; text-transform:uppercase;
+        color:#a1660a; font-weight:600;
+      }
+      #requisito{
+        margin-top:24px; font-size:86px; line-height:1.08; font-weight:600;
+        letter-spacing:-.015em;
+      }
+      #norma{ margin-top:20px; font-size:38px; color:#5b6472; font-style:italic }
+
+      #riquadro-verdetto{
+        margin-top:76px; background:#fff;
+        border:1px solid #e2ded7; border-left:8px solid #1d6b48;
+        padding:48px 52px 44px;
+        box-shadow:0 26px 70px -44px rgba(20,24,31,.6);
+      }
+      #esito{
+        display:inline-block; font-size:36px; letter-spacing:.16em; text-transform:uppercase;
+        font-weight:700; color:#1d6b48; background:#e8f2ec; padding:14px 24px; border-radius:4px;
+      }
+      #motivo{ margin-top:32px; font-size:42px; line-height:1.4 }
+      #fonte-verdetto{ margin-top:30px; font-size:28px; color:#5b6472 }
+
+      #timbro{ margin-top:44px; display:flex; align-items:center; gap:22px }
+      #timbro .segno{
+        width:64px; height:64px; border-radius:50%; background:#e8f2ec; color:#1d6b48;
+        display:grid; place-items:center; font-size:34px; font-weight:700;
+      }
+      #timbro .voce{
+        font-size:30px; letter-spacing:.1em; text-transform:uppercase;
+        color:#1d6b48; font-weight:600;
+      }
+
+      /* ── destra: il documento del cliente ── */
+      #foglio{
+        left:1036px; top:196px; width:788px;
+        background:#fff; border:1px solid #e2ded7;
+        box-shadow:0 34px 90px -55px rgba(20,24,31,.65);
+        padding:56px 56px 60px;
+      }
+      #nome-file{
+        font-size:26px; color:#5b6472; letter-spacing:.05em;
+        padding-bottom:30px; border-bottom:1px solid #e2ded7;
+      }
+      .riga{ height:18px; background:#eceae5; border-radius:3px; margin-top:30px }
+      .riga.corta{ width:58% }
+
+      #passaggio{
+        position:relative; margin-top:34px; padding:28px 30px;
+        font-size:34px; line-height:1.46;
+      }
+      #evidenza{
+        position:absolute; inset:0; background:#f7efe0;
+        border-left:5px solid #a1660a; border-radius:2px;
+        transform-origin:left center;
+      }
+      #testo-passaggio{ position:relative }
+
+      /* il filo che porta il passaggio dentro al giudizio */
+      #filo{
+        position:absolute; left:936px; top:700px; width:100px; height:4px;
+        background:#a1660a; transform-origin:right center;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="riscontro"
+      data-start="0"
+      data-width="1920"
+      data-height="1080"
+      data-duration="9"
+    >
+      <div id="fondo" class="clip" data-start="0" data-duration="9" data-track-index="0"></div>
+
+      <div id="colonna" class="clip" data-start="0" data-duration="9" data-track-index="1">
+        <div id="occhiello" class="mono">Requisito 12 di 17</div>
+        <div id="requisito">Adempimenti di radioprotezione</div>
+        <div id="norma">D.Lgs 101/2020</div>
+
+        <div id="riquadro-verdetto">
+          <div id="esito" class="mono">Non dovuto</div>
+          <div id="motivo">La struttura non dispone di apparecchiature radiogene:
+            l'obbligo non si applica.</div>
+          <div id="fonte-verdetto" class="mono">amb-01-autorizzazione.txt · passaggio 3</div>
+        </div>
+
+        <div id="timbro">
+          <div class="segno">✓</div>
+          <div class="voce mono">Passaggio riscontrato</div>
+        </div>
+      </div>
+
+      <div id="foglio" class="clip" data-start="0" data-duration="9" data-track-index="2">
+        <div id="nome-file" class="mono">amb-01-autorizzazione.txt</div>
+        <div class="riga"></div>
+        <div class="riga corta"></div>
+        <div id="passaggio">
+          <div id="evidenza"></div>
+          <div id="testo-passaggio">«la struttura NON dispone di apparecchiature radiogene
+            né di diagnostica per immagini con radiazioni ionizzanti»</div>
+        </div>
+        <div class="riga"></div>
+        <div class="riga corta"></div>
+      </div>
+
+      <div id="filo" class="clip" data-start="0" data-duration="9" data-track-index="3"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // 1 — il requisito da verificare
+      tl.fromTo("#occhiello", { opacity: 0, y: 18 },
+                { opacity: 1, y: 0, duration: .5, ease: "power2.out" }, 0.2);
+      tl.fromTo("#requisito", { opacity: 0, y: 28 },
+                { opacity: 1, y: 0, duration: .65, ease: "power3.out" }, 0.4);
+      tl.fromTo("#norma", { opacity: 0, y: 16 },
+                { opacity: 1, y: 0, duration: .5, ease: "power2.out" }, 0.7);
+
+      // 2 — il documento del cliente entra
+      tl.fromTo("#foglio", { opacity: 0, x: 64 },
+                { opacity: 1, x: 0, duration: .7, ease: "power3.out" }, 1.05);
+      tl.fromTo(".riga", { opacity: 0 },
+                { opacity: 1, duration: .28, stagger: .08, ease: "none" }, 1.45);
+      tl.fromTo("#testo-passaggio", { opacity: 0 },
+                { opacity: .3, duration: .3, ease: "none" }, 1.65);
+
+      // 3 — il passaggio pertinente viene trovato ed evidenziato
+      tl.fromTo("#evidenza", { scaleX: 0, opacity: 1 },
+                { scaleX: 1, duration: .6, ease: "power2.inOut" }, 2.45);
+      tl.to("#testo-passaggio", { opacity: 1, duration: .45, ease: "none" }, 2.75);
+
+      // 4 — il filo lo porta dentro al giudizio
+      tl.fromTo("#filo", { scaleX: 0, opacity: 1 },
+                { scaleX: 1, duration: .45, ease: "power2.inOut" }, 3.45);
+
+      // 5 — il verdetto, con la sua fonte
+      tl.fromTo("#riquadro-verdetto", { opacity: 0, y: 34 },
+                { opacity: 1, y: 0, duration: .6, ease: "power3.out" }, 3.85);
+      tl.fromTo("#esito", { opacity: 0, scale: .9 },
+                { opacity: 1, scale: 1, duration: .45, ease: "back.out(2)" }, 4.15);
+      tl.fromTo("#motivo", { opacity: 0, y: 16 },
+                { opacity: 1, y: 0, duration: .5, ease: "power2.out" }, 4.45);
+      tl.fromTo("#fonte-verdetto", { opacity: 0 },
+                { opacity: 1, duration: .4, ease: "none" }, 4.85);
+
+      // 6 — il codice appone il timbro
+      tl.fromTo("#timbro", { opacity: 0, scale: 1.28, rotate: -4 },
+                { opacity: 1, scale: 1, rotate: 0, duration: .5, ease: "back.out(2.2)" }, 5.45);
+
+      // 7 — dissolvenza, perché il giro si richiuda pulito
+      tl.to(["#colonna", "#foglio", "#filo"],
+            { opacity: 0, duration: .6, ease: "power2.in" }, 8.15);
+
+      window.__timelines["riscontro"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+:root{
+  --carta:#fbfaf8;
+  --inchiostro:#14181f;
+  --tenue:#5b6472;
+  --filo:#e2ded7;
+  --oro:#8a5408;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{
+  margin:0; padding:clamp(1.5rem,5vw,4rem); background:var(--carta);
+  color:var(--inchiostro); font:18px/1.7 var(--serif);
+}
+main{max-width:46rem; margin:0 auto}
+h1,h2{line-height:1.15; letter-spacing:-.02em}
+h1{font-size:clamp(2rem,6vw,3.5rem)}
+h2{margin-top:2.5rem; font-size:1.45rem}
+p,li{max-width:68ch}
+.meta{font:600 .75rem/1.5 var(--mono); letter-spacing:.08em; color:var(--tenue)}
+a{color:var(--oro); text-underline-offset:.2em}
+:focus-visible{outline:2px solid var(--oro); outline-offset:4px}
+footer{margin-top:3rem; padding-top:1rem; border-top:1px solid var(--filo); color:var(--tenue)}
+@media(prefers-color-scheme:dark){
+  :root{--carta:#15171b;--inchiostro:#eae7e1;--tenue:#a3aab6;--filo:#2d323a;--oro:#d9a441}
+}

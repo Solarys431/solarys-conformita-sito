@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>La stessa domanda — Solarys Conformità</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin:0; padding:0; box-sizing:border-box }
+      html, body { width:1920px; height:1080px; overflow:hidden; background:#fbfaf8 }
+      body{ font-family:"EB Garamond",Georgia,serif; color:#14181f }
+      .mono{ font-family:"JetBrains Mono",ui-monospace,monospace }
+
+      #root{ position:relative; width:1920px; height:1080px; overflow:hidden }
+      #fondo{ position:absolute; inset:0; background:#fbfaf8 }
+      .clip{ position:absolute }
+
+      /* la domanda, in cima */
+      #domanda{ left:96px; top:86px; width:1728px; text-align:center }
+      #etichetta-domanda{
+        font-size:26px; letter-spacing:.22em; text-transform:uppercase;
+        color:#8a5408; font-weight:600;
+      }
+      #testo-domanda{ margin-top:22px; font-size:54px; line-height:1.24; font-weight:600;
+        max-width:1400px; margin-left:auto; margin-right:auto }
+
+      /* le due risposte */
+      .scheda{
+        top:296px; width:824px; height:600px;
+        background:#fff; border:1px solid #e2ded7; border-radius:4px;
+        padding:44px 48px; display:flex; flex-direction:column;
+      }
+      #sinistra{ left:96px }
+      #destra{ left:1000px; border-color:#c9a227; background:#fffdf8 }
+
+      .chi{
+        font-size:24px; letter-spacing:.14em; text-transform:uppercase;
+        color:#5b6472; font-weight:600; display:flex; justify-content:space-between;
+      }
+      #destra .chi{ color:#8a5408 }
+
+      .risposta{ margin-top:34px; font-size:38px; line-height:1.4 }
+      .risposta .forte{ font-weight:700 }
+      .coda{ margin-top:22px; font-size:30px; line-height:1.45; color:#5b6472 }
+
+      .pastiglia{
+        align-self:flex-start; margin-top:30px;
+        font-size:24px; letter-spacing:.14em; text-transform:uppercase; font-weight:700;
+        padding:12px 20px; border-radius:3px;
+      }
+      .pastiglia.no{ background:#f9eaea; color:#9b2226 }
+      .pastiglia.nd{ background:#f7efe0; color:#8a5408 }
+
+      .citazione{
+        margin-top:26px; padding:22px 26px; background:#f4f1ec; border-left:4px solid #a1660a;
+        font-size:27px; line-height:1.45; font-style:italic;
+      }
+      .fonte{ margin-top:20px; font-size:23px; color:#5b6472 }
+
+      .verifica{
+        margin-top:auto; display:flex; align-items:center; gap:16px;
+        font-size:24px; letter-spacing:.1em; text-transform:uppercase; font-weight:600;
+      }
+      .verifica.assente{ color:#9b2226 }
+      .verifica.fatta{ color:#1d6b48 }
+      .verifica .bollo{
+        width:48px; height:48px; border-radius:50%; display:grid; place-items:center;
+        font-size:26px; font-weight:700;
+      }
+      .verifica.assente .bollo{ background:#f9eaea }
+      .verifica.fatta .bollo{ background:#e8f2ec }
+
+      #chiusa{
+        left:96px; top:952px; width:1728px; text-align:center;
+        font-size:34px; color:#5b6472; font-style:italic;
+      }
+      #chiusa b{ color:#14181f; font-style:normal; font-weight:600 }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="confronto"
+      data-start="0"
+      data-width="1920"
+      data-height="1080"
+      data-duration="11"
+    >
+      <div id="fondo" class="clip" data-start="0" data-duration="11" data-track-index="0"></div>
+
+      <div id="domanda" class="clip" data-start="0" data-duration="11" data-track-index="1">
+        <div id="etichetta-domanda" class="mono">La stessa domanda, sugli stessi documenti</div>
+        <div id="testo-domanda">«Questo poliambulatorio deve adempiere agli obblighi di radioprotezione?»</div>
+      </div>
+
+      <div id="sinistra" class="scheda clip" data-start="0" data-duration="11" data-track-index="2">
+        <div class="chi mono"><span>Un modello linguistico</span><span>23 GB</span></div>
+        <div class="risposta"><span class="forte">«Sì, è obbligatorio.»</span></div>
+        <div class="coda">Seguono gli adempimenti da attuare, l'esperto da nominare
+          e le sanzioni penali previste.</div>
+        <div class="pastiglia no mono">Risposta errata</div>
+        <div class="verifica assente">
+          <div class="bollo">—</div>
+          <div class="mono">Nessuna fonte citata</div>
+        </div>
+      </div>
+
+      <div id="destra" class="scheda clip" data-start="0" data-duration="11" data-track-index="3">
+        <div class="chi mono"><span>Solarys Conformità</span><span>in locale</span></div>
+        <div class="pastiglia nd mono" id="esito-destra">Non dovuto</div>
+        <div class="risposta" style="font-size:34px">La struttura non dispone di apparecchiature
+          radiogene: l'obbligo non si applica.</div>
+        <div class="citazione">«la struttura NON dispone di apparecchiature radiogene
+          né di diagnostica per immagini con radiazioni ionizzanti»</div>
+        <div class="fonte mono">amb-01-autorizzazione.txt · passaggio 3</div>
+        <div class="verifica fatta">
+          <div class="bollo">✓</div>
+          <div class="mono">Passaggio riscontrato</div>
+        </div>
+      </div>
+
+      <div id="chiusa" class="clip" data-start="0" data-duration="11" data-track-index="4">
+        Non è la taglia del modello: è <b>il controllo che viene dopo</b>.
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // la domanda
+      tl.fromTo("#etichetta-domanda", { opacity: 0, y: 14 },
+                { opacity: 1, y: 0, duration: .45, ease: "power2.out" }, 0.15);
+      tl.fromTo("#testo-domanda", { opacity: 0, y: 24 },
+                { opacity: 1, y: 0, duration: .6, ease: "power3.out" }, 0.35);
+
+      // le due schede entrano insieme: stessa domanda, stessi documenti
+      tl.fromTo("#sinistra", { opacity: 0, x: -40 },
+                { opacity: 1, x: 0, duration: .6, ease: "power3.out" }, 1.2);
+      tl.fromTo("#destra", { opacity: 0, x: 40 },
+                { opacity: 1, x: 0, duration: .6, ease: "power3.out" }, 1.2);
+
+      // il modello risponde per primo, sicuro
+      tl.fromTo("#sinistra .risposta", { opacity: 0, y: 16 },
+                { opacity: 1, y: 0, duration: .45, ease: "power2.out" }, 1.9);
+      tl.fromTo("#sinistra .coda", { opacity: 0 },
+                { opacity: 1, duration: .5, ease: "none" }, 2.4);
+      tl.fromTo("#sinistra .pastiglia", { opacity: 0, scale: .92 },
+                { opacity: 1, scale: 1, duration: .4, ease: "back.out(2)" }, 3.1);
+      tl.fromTo("#sinistra .verifica", { opacity: 0 },
+                { opacity: 1, duration: .45, ease: "none" }, 3.6);
+
+      // il prodotto risponde dopo, ma con la prova
+      tl.fromTo("#esito-destra", { opacity: 0, scale: .92 },
+                { opacity: 1, scale: 1, duration: .45, ease: "back.out(2)" }, 4.3);
+      tl.fromTo("#destra .risposta", { opacity: 0, y: 16 },
+                { opacity: 1, y: 0, duration: .45, ease: "power2.out" }, 4.7);
+      tl.fromTo("#destra .citazione", { opacity: 0, y: 18 },
+                { opacity: 1, y: 0, duration: .5, ease: "power2.out" }, 5.2);
+      tl.fromTo("#destra .fonte", { opacity: 0 },
+                { opacity: 1, duration: .4, ease: "none" }, 5.7);
+      tl.fromTo("#destra .verifica", { opacity: 0, scale: 1.22 },
+                { opacity: 1, scale: 1, duration: .5, ease: "back.out(2.2)" }, 6.2);
+
+      // la morale
+      tl.fromTo("#chiusa", { opacity: 0, y: 18 },
+                { opacity: 1, y: 0, duration: .6, ease: "power2.out" }, 7.1);
+
+      tl.to(["#domanda", "#sinistra", "#destra", "#chiusa"],
+            { opacity: 0, duration: .6, ease: "power2.in" }, 10.2);
+
+      window.__timelines["confronto"] = tl;
+    </script>
+  </body>
+</html>
